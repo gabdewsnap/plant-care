@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import {styled} from 'styled-components'
+import {Row, Col} from 'react-bootstrap';
 import '../styles.css';
 import Game from './Game.jsx'
 import Strikes from './Strikes.jsx'
 import GameOver from './GameOver.jsx'
+import Timer from './Timer.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Title = styled.h1`
   margin: .5rem 0;
@@ -27,6 +31,9 @@ function App() {
   const [strikes, setStrikes] = useState(0)
   const [firstStrike, setfirstStrike] = useState(false) 
   const [playingGame, setPlayingGame] = useState(false)
+  const [randNumTimer, setRandNumTimer] = useState(0)
+
+
 
   function togglePlayGame(){
     setPlayingGame(prev => !prev);
@@ -35,7 +42,6 @@ function App() {
   function addStrikes(){
     setStrikes(prev => prev + 1);
 
-
     if(strikes ==- 3){
       setGameOver(prev => !prev)
     }
@@ -43,6 +49,10 @@ function App() {
     if(strikes === 0){
         setfirstStrike(true);
     }
+  }
+
+  function randomizedAnimationTimer(){
+    setRandNumTimer(Math.floor(Math.random() * 6)); 
   }
 
   function addRounds(){
@@ -72,7 +82,7 @@ function App() {
   // -keep track of "turn" ✔️ using score instead 
   // - want the pop up to over lay the image of plant and have comic style urgent border
   // - create array of emojis to map and make button components each with index and on click function? ✔️
-  // - love button not to show until after 10 rounds
+  // - love button not to show until after 10 rounds ✔️
   // - score keeping ✔️
   // - timer
   // - ramp up difficulty after so many rounds
@@ -81,8 +91,10 @@ function App() {
   // - withered version of plant if reaches 3rd strike?
   // - share results page
   // - ramp up difficulty after so many rounds // fade after awhile then a timer? 
+  //      - timer counting down? if icon not chosen  == strike 
   // - add fade to icons when they pop up ✔️
-
+  // - update 2d array with icon & sound to be array of objects with value: sound: 
+// 
   return (
 
 
@@ -98,10 +110,12 @@ function App() {
       
       {(playingGame && strikes < 3) && 
       <Container>
-        <section className="score-strikes">
-          <span>{score}</span>
-          <Strikes strikes={strikes}/>
-        </section>
+      
+        <Row className="score-strikes">
+          <Col xs={4}><span>{score}</span></Col>
+          <Col xs={4}><Timer addStrikes={addStrikes} rounds={rounds}/></Col>
+          <Col xs={4}><Strikes strikes={strikes} randNumTimer={randNumTimer}/></Col>   
+        </Row>
         
         <Game addStrikes={addStrikes} 
               addRounds={addRounds} 
@@ -115,8 +129,6 @@ function App() {
       {(strikes === 3) && 
         <GameOver resetGame={resetGame} score={score} />
       }
-     
-
     </div>
   )
 }

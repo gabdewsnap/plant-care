@@ -1,8 +1,17 @@
  import * as htmlToImage from 'html-to-image';
  import { copyImageToClipboard } from 'copy-image-clipboard'
+ import {styled} from 'styled-components'
 
+const EndGame = styled.section`
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+`
  
  export default function GameOver({resetGame, score}){
+
+    const deadPlant = "🌾";
     
     function endingPhrase(){
       if(score < 15) return `you only loved your plant ${score}x times :(`
@@ -23,11 +32,16 @@
       htmlToImage
         .toJpeg(node, { quality: 0.95, backgroundColor: 'white' })
         .then((dataUrl) => {
-          const img = new Image();
-          img.src = dataUrl;
-          document.getElementById('capture').append(img)
-          
+          console.log(dataUrl)
+          copyImageToClipboard(dataUrl          )
+            .then(() => {
+              console.log('Image Copied')
+            })
+            .catch((e) => {
+              console.log('Error: ', e.message)
+            })
 
+          
           //failed to execute 'write' on 'clipboard': the clipboard api has blocked because of permissions policy applied to the current document
           // think this doesn't work because in scrimba "browser"
 
@@ -48,9 +62,10 @@
     return(
    
       <>
-        <div id="capture">
+        <EndGame id="capture" >
+            <p>{deadPlant}</p>
             <p className="final-score">{endingPhrase()}</p>
-        </div>
+        </EndGame>
 
         <button onClick={shareResults}>Share Results</button>       
         <button onClick={resetGame}>Play Again?</button>
