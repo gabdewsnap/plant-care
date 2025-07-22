@@ -8,6 +8,9 @@ const EndGame = styled.section`
   align-items:center;
   justify-content:center;
 `
+
+//Show dead plant on screen but when sharing result show plant player ended with?
+//Include link to game as well.
  
  export default function GameOver({resetGame, score}){
 
@@ -21,38 +24,19 @@ const EndGame = styled.section`
     }
 
     function shareResults(){
-    //  htmlToImage
-    //   .toCanvas(document.getElementById('capture'))
-    //   .then(function (canvas) {
-    //     document.body.appendChild(canvas);
-    //   });
 
       const node = document.getElementById('capture');
-
+      // TO DO ADD DATE TO IMAGE
       htmlToImage
         .toJpeg(node, { quality: 0.95, backgroundColor: 'white' })
         .then((dataUrl) => {
-          console.log(dataUrl)
-          copyImageToClipboard(dataUrl          )
+          copyImageToClipboard(dataUrl)
             .then(() => {
-              console.log('Image Copied')
+              window.alert('Results Copied')
             })
             .catch((e) => {
               console.log('Error: ', e.message)
             })
-
-          
-          //failed to execute 'write' on 'clipboard': the clipboard api has blocked because of permissions policy applied to the current document
-          // think this doesn't work because in scrimba "browser"
-
-        //  copyImageToClipboard(dataUrl)
-        // .then(() => {
-        //   alert('results copied to clipboard')
-        // })
-        // .catch((e) => {
-        //   console.error('Error: ', e.message)
-        // })
-
         })
         .catch((err) => {
           console.error('oops, something went wrong!', err);
@@ -60,7 +44,6 @@ const EndGame = styled.section`
     }
     
     return(
-   
       <>
         <EndGame id="capture" >
             <p>{deadPlant}</p>

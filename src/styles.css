@@ -8,6 +8,8 @@
 
 html {
   font-size: 62.5%;
+  width: 100%;
+  height: 100%
 }
 
 body {
@@ -48,6 +50,11 @@ body {
 
 .icon-shown {
   opacity: 1;
+  transition: all .3ms linear;
+}
+
+.icon-shown-but-faster {
+  opacity: 1;
   transition: all .1ms linear;
 }
 
@@ -56,12 +63,17 @@ body {
   transition: all 50ms linear;
 }
 
+.icon-btns{
+  border:  none;
+  background: none;
+  padding: 1rem;
+}
 .game-container{
   position: relative;
   width: 100%
 }
 
 .plants{
-  width: 100%
+  width: 200px;
 }
 

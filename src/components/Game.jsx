@@ -36,7 +36,7 @@ const RandomIcon = styled.p`
 `
 
 
-export default function Game({addRounds, addStrikes, addScore, rounds, score, firstStrike}){
+export default function Game({addRounds, failedAttempt, addScore, rounds, score, firstStrike}){
 
   const [plantIndex, setPlantIndex] = useState(0)
   const [randomIcon, setRandomIcon] = useState();
@@ -49,6 +49,7 @@ export default function Game({addRounds, addStrikes, addScore, rounds, score, fi
   const [playToot] = useSound('/public/sounds/Toot.mp3', {volume: 1});
   const plantImgs = ["/images/plant1.png", "/images/plant2.png", "/images/plant3.png", "/images/plant4.png", "/images/plant5.png", "/images/plant6.png"];
   const iconSize = 50;
+  let iconShownSpeed = "icon-shown";
 
 
   //shuffles the careIcons array around
@@ -116,21 +117,27 @@ export default function Game({addRounds, addStrikes, addScore, rounds, score, fi
 
   useEffect(()=>{   
       //add additional icon after 10 rounds
-      if(score >= 5 && careIcons.length === 3){
+      if(score === 10 && careIcons.length === 3){
         setCareIcons(prev => [...prev, ["💗", "love.mp3"]])
       }
 
       //randomize position of icons after so many rounds
-      if(score >= 15){
+      if(score >= 25){
         shuffleIconsPosition();
+      }
+
+      //ramp up animation speed for the icons being shown
+      if(score === 35){
+        iconShownSpeed = "icon-shown-but-faster"
       }
       
       //randomize the icon that is meant to be matched
-      setRandomIcon(shuffledIcons[Math.floor(Math.random() * 3)][0]);  
+      setRandomIcon(shuffledIcons[Math.floor(Math.random() * 3)][0]); 
+      setShowingIcon(true); 
 
       setTimeout(() => {
         setShowingIcon(false);
-      }, 250);
+      }, 300);
   }, [rounds])
 
 
@@ -147,6 +154,7 @@ export default function Game({addRounds, addStrikes, addScore, rounds, score, fi
       }
       setConsecutiveWins(prev => prev + 1);
       addScore();
+      addRounds(); 
     }
     else{
       //if wrong guess set back the plant growth
@@ -155,11 +163,10 @@ export default function Game({addRounds, addStrikes, addScore, rounds, score, fi
       }
    
       setConsecutiveWins(0);
-      addStrikes();
+      failedAttempt();
     }
 
     setShowingIcon(true);
-    addRounds(); 
   }
 
   return(

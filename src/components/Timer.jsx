@@ -1,27 +1,34 @@
+import { useEffect, useState } from 'react';
 import {styled} from 'styled-components'
-import {useState, useEffect} from 'react'
 
 const TimerBar = styled.span`
-   background-color: red;
-   height: 3px;
-   width: 100%;
-   transition: width ${({ $duration }) => $duration}s ease;
-`
+  background-color: red;
+  height: 3px;
+  width: ${({ $width }) => $width};
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: shrinkTransform ${({ $duration }) => $duration}s linear forwards;
+
+  @keyframes shrinkTransform {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+  }
+`;
 
 
 
-export default function Timer({rounds}){
-  const [duration, setDuration] = useState(2); // initial duration
+export default function Timer({rounds, fullWidth, failedAttempt}){
+  const [duration, setDuration] = useState(5)
 
   useEffect(() => {
-    const random = Math.random() * 3 + 0.5; // e.g. between 0.5 and 3.5s
-    setDuration(random);
-  }, [rounds]);
-  
+    (duration >= 1 ) && setDuration(prev => prev - .1);
+    console.log(duration);
+  }
+
+    , [rounds])
+  // const duration = rounds - ;
 
   return(
-    
-    <TimerBar $duration={duration}></TimerBar>
-  
+    <TimerBar key={rounds} $duration={duration} $width={fullWidth} onAnimationEnd={()=>{failedAttempt()}}></TimerBar>
   )
 }
