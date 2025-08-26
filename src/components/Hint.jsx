@@ -8,23 +8,27 @@ const FirstHint = styled.div`
     width: 60%;
     left: -25%;
     top: 60%;
+    font-size: 1.25rem;
 
     @media (max-width: 768px) {
       width: 100px;
       left: 2%;
       top: 50%;
+      font-size: 1rem;
     }
   `
   const SecondHint = styled(FirstHint)`
     position: absolute;
     top: 25%;
     left: 90%;
+    font-size: 1.25rem;
 
      @media (max-width: 768px) {
       width: 150px;
       left: 55%;
       top: 10%;
       text-align: end;
+      font-size: 1rem;
     }
   `
   const FirstSquiggle = styled.img`
@@ -83,7 +87,7 @@ export default function Hint({firstStrike, rounds}){
       
         <FirstHint>
             <ThirdSquiggle src="/svg/squiggle-3.svg"/>
-            <p className="delius-unicase-regular fs-md-5 fs-6"><u>How to Play: </u><br/> an icon will appear here - hit the matching icon here </p>
+            <p className="delius-unicase-regular"><u>How to Play: </u><br/> an icon will appear here - hit the matching icon here </p>
             <SecondSquiggle src="/svg/squiggle-1.svg"/>
         </FirstHint>
       }
@@ -91,7 +95,7 @@ export default function Hint({firstStrike, rounds}){
       {firstStrike && (rounds < 3) && 
       <SecondHint> 
         <FirstSquiggle src="/svg/squiggle-1.svg"/>
-        <p className="delius-unicase-regular fs-md-5 fs-6">not quite! you've recieved a strike for selecting incorrectly. careful, two more strikes and you're out! :(</p>
+        <p className="delius-unicase-regular">not quite! you've recieved a strike for selecting incorrectly. careful, two more strikes and you're out! :(</p>
       </SecondHint>}
     </>
     
