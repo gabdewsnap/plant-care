@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {styled} from 'styled-components'
 
 const TimerBar = styled.span`
-  background-color: red;
+  background-color: #CF4529;
   height: 3px;
   width: ${({ $width }) => $width};
   transform-origin: left center;
@@ -15,18 +15,12 @@ const TimerBar = styled.span`
   }
 `;
 
-
-
 export default function Timer({rounds, fullWidth, failedAttempt}){
   const [duration, setDuration] = useState(5)
 
   useEffect(() => {
     (duration >= 1 ) && setDuration(prev => prev - .1);
-    console.log(duration);
-  }
-
-    , [rounds])
-  // const duration = rounds - ;
+  }, [rounds])
 
   return(
     <TimerBar key={rounds} $duration={duration} $width={fullWidth} onAnimationEnd={()=>{failedAttempt()}}></TimerBar>

@@ -10,7 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
  const Title = styled.img`
-  width: 200px;
+  width: 500px;
+
+  @media (max-width: 768px) {
+    width: 375px;
+  }
 `
 
 const Container = styled.section`
@@ -18,7 +22,11 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width : 350px
+  width: 500px;
+
+   @media (max-width: 768px) {
+    width: 375px;
+  }
 ` 
 
 export default function App() {
@@ -64,37 +72,38 @@ export default function App() {
 
   return (
     <div className="app">
-
-      <Title src="/images/title.png"/>
-
-      {!playingGame && 
       <Container>
-        <p>love the plant and fullfill its needs!</p>
-        <button onClick={() => setPlayingGame(prev => !prev)}> Play Game</button>
-      </Container> }
-      
-      {(playingGame && strikes < 3) && 
-      
-      <Container>
-        <Row className="score-strikes">
-          <Col xs={4}><span>{score}</span></Col>
-          {(rounds >= 25 ) ? <Col xs={4}><Timer failedAttempt={failedAttempt} rounds={rounds} fullWidth='100%'/></Col> : <Col xs={4}/>}
-          <Col xs={4}><Strikes strikes={strikes} /></Col>   
-        </Row>
+        <Title src="/images/title.png" alt="plant love logo"/>
+
+        {!playingGame && 
+        <Container>
+          <p className='delius-unicase-regular fs-3 '>love the plant and fullfill its needs!</p>
+          <button className='p-3 rounded-3 fs-3 delius-unicase-regular mt-5 game-btn' onClick={() => setPlayingGame(prev => !prev)}> Play Game</button>
+        </Container> }
         
-        <Game addStrikes={addStrikes} 
-              addRounds={addRounds} 
-              addScore={addScore} 
-              failedAttempt={failedAttempt}
-              rounds={rounds} 
-              score = {score}
-              strikes={strikes} 
-              firstStrike={firstStrike}/>
-      </Container>}
+        {(playingGame && strikes < 3) && 
+        
+        <Container>
+          <Row className="score-strikes">
+            <Col xs={4}><span className='delius-unicase-regular fs-2'>{score}</span></Col>
+            {(rounds >= 25 ) ? <Col xs={4}><Timer failedAttempt={failedAttempt} rounds={rounds} fullWidth='100%'/></Col> : <Col xs={4}/>}
+            <Col xs={4}><Strikes strikes={strikes} /></Col>   
+          </Row>
+          
+          <Game addStrikes={addStrikes} 
+                addRounds={addRounds} 
+                addScore={addScore} 
+                failedAttempt={failedAttempt}
+                rounds={rounds} 
+                score = {score}
+                strikes={strikes} 
+                firstStrike={firstStrike}/>
+        </Container>}
 
-      {(strikes === 3) && 
-        <GameOver resetGame={resetGame} score={score} />
-      }
+        {(strikes === 3) && 
+          <GameOver resetGame={resetGame} score={score} />
+        }
+      </Container>
     </div>
   )
 }

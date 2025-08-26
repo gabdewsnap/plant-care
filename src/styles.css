@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kranky&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bonbon&family=Indie+Flower&family=Kranky&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bonbon&family=Delius+Unicase:wght@400;700&family=Indie+Flower&family=Kranky&display=swap');
+
 *,
 *::before,
 *::after {
@@ -20,8 +24,34 @@ body {
 .app{
   display: flex;
   flex-direction: column;
-  align-items:  center;
-    
+  align-items:  center;   
+  padding: 2vw 1vw;
+  height: 100vh;
+  margin: auto;
+  background-color: #eaecda;
+}
+.kranky-regular {
+  font-family: "Kranky", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bonbon-regular {
+  font-family: "Bonbon", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.delius-unicase-regular {
+  font-family: "Delius Unicase", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.delius-unicase-bold {
+  font-family: "Delius Unicase", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .hints{
@@ -67,6 +97,12 @@ body {
   border:  none;
   background: none;
   padding: 1rem;
+  transition: top 0.3s, left 0.3s;
+  height: 65px;
+}
+
+.icon-imgs{
+  height: 100%;
 }
 .game-container{
   position: relative;
@@ -74,6 +110,35 @@ body {
 }
 
 .plants{
-  width: 200px;
+  width: 300px;
 }
 
+.strike{
+  height: 2rem;
+  padding: 0 5px;
+}
+
+.strike-fill{
+  color:  #CF4529;
+}
+
+.game-btn{
+  background-color: #6f9389;
+  color: white;
+  border: 1px solid #38755d;
+  box-shadow: 1px 1px 5px black;
+}
+
+.game-btn:hover{
+  background-color: #38755d;
+}
+
+@media (max-width: 768px) {
+  .icon-btns{
+    height: 55px;
+  }
+
+  .plants{
+    width: 250px;
+  }
+}
